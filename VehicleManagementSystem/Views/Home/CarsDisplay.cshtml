@@ -1,0 +1,27 @@
+﻿@model IEnumerable<VehicleManagementSystem.Models.Vehicle>
+
+@{
+    ViewBag.Title = "CarsDisplay";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@{
+    int counter = 1;
+    if (counter == 9)
+    {
+        counter = 1;
+    }
+    foreach (var item in Model)
+    {
+
+        <div class="card mb-3" style="box-shadow:rgb(128, 128, 128) 2px 5px 20px">
+            <img src="~/Content/img/p@(counter++).jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ModelName)</h5>
+                <p class="card-text">  @Html.DisplayFor(modelItem => item.CompanyName)</p>
+                <p class="card-text"><small class="text-muted"> @Html.DisplayFor(modelItem => item.ShowroomPrice) Rs</small></p>
+                @Html.ActionLink("Generate Quote", "Create", "Visitors", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-large btn-outline" })
+            </div>
+        </div>
+    }
+}

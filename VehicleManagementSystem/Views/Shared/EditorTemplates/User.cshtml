@@ -1,0 +1,11 @@
+﻿@model VehicleManagementSystem.Models.User
+
+<tr>
+    <td><input type="checkbox" name="employeeIdsToDelete" id="employeeIdsToDelete" value="@Model.Id"></td>
+    <td>@Model.Username</td>
+    <td>@Model.Password</td>
+    <td>@Model.Name</td>   
+    <td>@Model.City</td>
+    <td>@Model.Email</td>
+    <td>@Html.ActionLink("Edit", "Edit", new { id = Model.Id}, htmlAttributes: new { @class = "btn btn-warning" })</td>
+</tr>

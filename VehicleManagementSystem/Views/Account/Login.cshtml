@@ -1,0 +1,42 @@
+﻿@model VehicleManagementSystem.Models.User
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+    }
+
+   
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()   
+    <div class="center">
+        <div class="card" style="box-shadow:rgb(128, 128, 128) 2px 5px 20px">
+            <div class="card-body">               
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Username)
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", id = "username" })
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group alert-danger">
+                    <p class="text-center">  @Html.ValidationMessage("CustomError")</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-success rounded-pill" id="login">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

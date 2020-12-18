@@ -1,0 +1,26 @@
+﻿@model IEnumerable<VehicleManagementSystem.Models.Sale>
+
+@{
+    ViewBag.Title = "ClientCar";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h4>Cars owned by me</h4>
+<h5>Hi, @User.Identity.Name</h5>
+<h6>You are welcome to our vehicle management system,</h6>
+<h6>here you can view the details and specs about your car and also get notified about its servicing</h6>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-3" style="box-shadow:rgb(128, 128, 128) 2px 5px 20px">
+        <img src="~/Content/img/p2.jpg" class="card-img-top" >
+        <div class="card-body">
+            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Vehicle.ModelName)</h5>
+            <p class="card-text">  @Html.DisplayFor(modelItem => item.Vehicle.CompanyName)</p>
+            <p class="card-text"><small class="text-muted">Date of purchase : @Html.DisplayFor(modelItem => item.DateOfPurchase) </small></p>
+            <p class="alert-danger"><small class="text-muted">Servicing due on : @(item.DateOfPurchase.Value.AddMonths(1)) </small></p>
+        </div>
+    </div>
+}
+
+

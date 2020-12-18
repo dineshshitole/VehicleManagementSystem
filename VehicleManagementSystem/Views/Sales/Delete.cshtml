@@ -1,0 +1,49 @@
+﻿@model VehicleManagementSystem.Models.Sale
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h4>Delete</h4>
+<hr />
+<div class="card">
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOfPurchase)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateOfPurchase)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Username)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.Username)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Vehicle.SerialNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Vehicle.SerialNumber)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<hr>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+    </div>
+}
+

@@ -1,0 +1,115 @@
+﻿@model IPagedList<VehicleManagementSystem.Models.Vehicle>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h4>List of vehicles</h4>
+<div class=" container text-right">
+    @Html.ActionLink("Add Vehicles", "Create", null, null, new { @class = "btn btn-success d-inline" })
+</div>
+<hr>
+
+
+@using (@Html.BeginForm("Index", "ManageVehicles", FormMethod.Get))
+{
+
+    <div>
+        <p><b>Select the feild to search</b></p>
+        @Html.RadioButton("searchBy", "ModelName", true)<text>ModelName</text>
+        @Html.RadioButton("searchBy", "CompanyName")<text>CompanyName</text>
+        @Html.TextBox("search", null, new { @class = "form-control-sm ", placeholder = "Enter search text" })
+        <input type="submit" class="btn btn-outline-info btn-sm" value="search" />
+    </div>
+
+}
+
+@using (Html.BeginForm("Delete", "ManageVehicles", FormMethod.Post))
+{
+    <div class=" container text-right">
+        <input type="submit" class="btn btn-danger d-inline" value="Delete selected vehicles" id="deleteRow" />
+    </div>
+    <hr />
+    <table class="display" id="table_id">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkAll">
+                </th>
+                <th>
+                    SerialNumber
+                </th>
+                <th>
+                    CompanyName
+                </th>
+                <th>
+                    ModelName
+                </th>
+                <th>
+                    AddedOn
+                </th>
+                <th>
+                    ShowroomPrice
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+
+        @if (Model.Count() == 0)
+        {
+            <tbody>
+                <tr>
+                    <td colspan="8">
+                        No records found
+                    </td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                @Html.EditorForModel()
+            </tbody>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }))
+
+}
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+        $("#checkAll").click(function () {
+            $("input[name='employeeIdsToDelete']").attr("checked", this.checked);
+        });
+
+        $("input[name='employeeIdsToDelete']").click(function () {
+            if ($("input[name='employeeIdsToDelete']").length == $("input[name='employeeIdsToDelete']:checked").length) {
+                $("#checkAll").attr("checked", "checked");
+            }
+            else {
+                $("#checkAll").removeAttr("checked");
+            }
+        });
+
+        $("#deleteRow").click(function () {
+            var count = $("input[name='employeeIdsToDelete']:checked").length;
+            if (count == 0) {
+                alert("No rows selected to delete");
+                return false;
+            }
+            else {
+                return confirm(count + "  rows will be deleted");
+            }
+        });
+
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    });
+</script>

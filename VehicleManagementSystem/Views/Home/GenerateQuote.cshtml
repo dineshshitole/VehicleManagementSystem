@@ -1,0 +1,92 @@
+﻿@model List<VehicleManagementSystem.Models.Quotation>
+
+@{
+    ViewBag.Title = "GenerateQuote";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div id="Grid">
+    <h2 class="text-center">Quotation</h2>
+    <div class="text-left">
+        <h3><B>Kia Motor Dealers, Nashik</B></h3>
+        <h4><B>kia@motor.net</B></h4>
+        <h4><B>+91-9856859658</B></h4>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="text-right">          
+            <h3><b>@item.Visitor.Name</b></h3>
+            <h4><b>@item.Visitor.City</b></h4>
+            <h4><b>@item.Visitor.Email</b></h4>
+            <h4><b>@item.Visitor.DateOfVisit</b></h4>
+        </div>
+    }
+    <hr>
+    <br>
+    <table align="center" border="1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    ModelName
+                </th>
+                <th>
+                    Showroom Price(INR)
+                </th>
+                <th>
+                    RTO cess(INR)
+                </th>
+                <th>
+                    GST (%)
+                </th>
+                <th>
+                    Total Expenditure
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int rtoTax = 1200;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vehicle.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vehicle.ModelName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vehicle.ShowroomPrice) Rs
+                        </td>
+                        <td>
+                            1200 Rs
+                        </td>
+                        <td>
+                            3.5%
+                        </td>
+                        <td>
+                            @(Convert.ToInt32(item.Vehicle.ShowroomPrice) + rtoTax + (3.5 * (Convert.ToInt32(item.Vehicle.ShowroomPrice))/100))
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<hr>
+@using (Html.BeginForm("Export", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="GridHtml" />
+    <input type="submit" id="btnSubmit" class="btn btn-toggle btn-outline-warning " value="Generate PDF" />
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>
