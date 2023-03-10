@@ -1,6 +1,6 @@
 # Vehicle management system
 
-1.]This folder consists of vehicle management system project.
+*1.]This folder consists of vehicle management system project.
 2.]There are 2 roles in this application, a.)Admin b.)Client.
 3.]Before starting the application make sure you create Two user Roles as a.)Admin b.)Client in the Role table.
 4.]Then you create a user in the user table, and then in UserRoleMappings table add the id of the user and the role.
